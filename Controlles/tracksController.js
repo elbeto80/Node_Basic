@@ -1,20 +1,28 @@
+const { matchedData } = require("express-validator");
 const { trackModel } = require("../Models");
 
 const getTracks = async (req, res) => {
-  const tracks = await trackModel.find({});
+  try {
+    const tracks = await trackModel.find({});
 
-  res.send({ tracks });
+    return res.status(200).json({ tracks });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
 };
 
 const getTrack = (req, res) => {};
 
 const createTrack = async (req, res) => {
-  const { body } = req;
-  console.log(body);
+  try {
+    const body = matchedData(req);
 
-  const response = await trackModel.create(body);
+    const response = await trackModel.create(body);
 
-  res.send({ response });
+    return res.status(201).json({ response });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
 };
 
 const updateTrack = (req, res) => {};

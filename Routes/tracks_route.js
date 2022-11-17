@@ -13,7 +13,7 @@ const {
   deleteTrack,
 } = require("../Controlles/tracksController");
 
-router.get("/tracks", CustomMiddleware, getTracks);
-router.post("/track", AddTrackValidator, createTrack);
+router.get("/tracks", getTracks);
+router.post("/track", [AddTrackValidator, CustomMiddleware], createTrack);
 
 module.exports = router;
