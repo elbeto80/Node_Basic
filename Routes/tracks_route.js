@@ -1,4 +1,7 @@
 const express = require("express");
+const router = express.Router();
+
+const { AddTrackValidator } = require("../Validators/tracks_validator");
 
 const {
   getTracks,
@@ -8,9 +11,7 @@ const {
   deleteTrack,
 } = require("../Controlles/tracksController");
 
-const router = express.Router();
-
 router.get("/tracks", getTracks);
-router.post("/track", createTrack);
+router.post("/track", AddTrackValidator, createTrack);
 
 module.exports = router;
