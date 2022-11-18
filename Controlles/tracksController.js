@@ -11,7 +11,18 @@ const getTracks = async (req, res) => {
   }
 };
 
-const getTrack = (req, res) => {};
+const getTrack = async (req, res) => {
+  try {
+    req = matchedData(req);
+    const { id } = req;
+
+    const track = await trackModel.findById(id);
+
+    return res.status(200).json({ track });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
 
 const createTrack = async (req, res) => {
   try {
@@ -25,9 +36,30 @@ const createTrack = async (req, res) => {
   }
 };
 
-const updateTrack = (req, res) => {};
+const updateTrack = async (req, res) => {
+  try {
+    const { id, ...body } = matchedData(req);
 
-const deleteTrack = (req, res) => {};
+    const response = await trackModel.findByIdAndUpdate(id, body);
+
+    return res.status(201).json({ response });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+const deleteTrack = async (req, res) => {
+  try {
+    req = matchedData(req);
+    const { id } = req;
+
+    const track = await trackModel.deleteOne({ _id: id });
+
+    return res.status(200).json({ track });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
 
 module.exports = {
   getTracks,

@@ -9,6 +9,6 @@ const {
 const uploadMdl = require("../Global/UploadFile");
 
 router.get("/storages", getFiles);
-router.post("/storage", uploadMdl.single("file"), uploadFileStorage);
+router.post("/storages", uploadMdl.single("file"), uploadFileStorage);
 
 module.exports = router;

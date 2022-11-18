@@ -14,14 +14,6 @@ const AddTrackValidator = [
   check("mediaId").exists().notEmpty().isMongoId(),
 
   (req, res, next) => {
-    // try {
-    //   validationResult(req).throw();
-    //   return next;
-    // } catch (err) {
-    //   res.status(403);
-    //   res.send({ error: err.array() });
-    // }
-
     const error = validationResult(req);
     const hasError = !error.isEmpty();
     if (hasError) {
@@ -32,4 +24,18 @@ const AddTrackValidator = [
   },
 ];
 
-module.exports = { AddTrackValidator };
+const idTrackValidator = [
+  check("id").exists().notEmpty(),
+
+  (req, res, next) => {
+    const error = validationResult(req);
+    const hasError = !error.isEmpty();
+    if (hasError) {
+      res.status(422).json({ error: error.array() });
+    } else {
+      next();
+    }
+  },
+];
+
+module.exports = { AddTrackValidator, idTrackValidator };
