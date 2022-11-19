@@ -53,7 +53,7 @@ const deleteTrack = async (req, res) => {
     req = matchedData(req);
     const { id } = req;
 
-    const track = await trackModel.deleteOne({ _id: id });
+    const track = await trackModel.delete({ _id: id });
 
     return res.status(200).json({ track });
   } catch (err) {
