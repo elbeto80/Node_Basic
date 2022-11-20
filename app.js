@@ -13,6 +13,7 @@ app.use(express.static("Storage"));
 const port = process.env.PORT || 3001;
 
 // Routes
+app.use("/api", require("./Routes/auth_route"));
 app.use("/api", require("./Routes/tracks_route"));
 app.use("/api", require("./Routes/storage_route"));
 
