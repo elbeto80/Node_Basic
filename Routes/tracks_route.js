@@ -6,8 +6,6 @@ const {
   idTrackValidator,
 } = require("../Validators/tracks_validator");
 
-const { CustomMiddleware } = require("../Middlewares/Custom_mddl");
-
 const {
   getTracks,
   getTrack,
@@ -16,9 +14,11 @@ const {
   deleteTrack,
 } = require("../Controlles/tracksController");
 
-router.get("/tracks", getTracks);
+const { validateSessionMddl } = require("../Middlewares/auth_mddl");
+
+router.get("/tracks", validateSessionMddl, getTracks);
 router.get("/tracks/:id", [idTrackValidator], getTrack);
-router.post("/tracks", [AddTrackValidator, CustomMiddleware], createTrack);
+router.post("/tracks", [AddTrackValidator], createTrack);
 router.put("/tracks/:id", [idTrackValidator, AddTrackValidator], updateTrack);
 router.delete("/tracks/:id", [idTrackValidator], deleteTrack);
 
