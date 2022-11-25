@@ -15,11 +15,24 @@ const {
 } = require("../Controlles/tracksController");
 
 const { validateSessionMddl } = require("../Middlewares/auth_mddl");
+const { checkRolMddl } = require("../Middlewares/rol_mddl");
 
 router.get("/tracks", validateSessionMddl, getTracks);
-router.get("/tracks/:id", [idTrackValidator], getTrack);
-router.post("/tracks", [AddTrackValidator], createTrack);
-router.put("/tracks/:id", [idTrackValidator, AddTrackValidator], updateTrack);
-router.delete("/tracks/:id", [idTrackValidator], deleteTrack);
+router.get("/tracks/:id", [validateSessionMddl, idTrackValidator], getTrack);
+router.post(
+  "/tracks",
+  [validateSessionMddl, checkRolMddl(["admin", "user"]), AddTrackValidator],
+  createTrack
+);
+router.put(
+  "/tracks/:id",
+  [validateSessionMddl, idTrackValidator, AddTrackValidator],
+  updateTrack
+);
+router.delete(
+  "/tracks/:id",
+  [validateSessionMddl, idTrackValidator],
+  deleteTrack
+);
 
 module.exports = router;
