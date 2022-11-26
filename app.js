@@ -6,7 +6,9 @@ const cors = require("cors");
 const morganBody = require("morgan-body");
 const { loggerStream } = require("./Global/Logger_Slack");
 
-const dbConnect = require("./Config/mongo_db");
+const switch_db = process.env.SWITCH_DB_CONECTION;
+const dbConnectMongo = require("./Config/mongo_db");
+const { MYSQL_CONECTION } = require("./Config/mysql_db");
 
 const app = express();
 
@@ -34,4 +36,4 @@ app.listen(port, () => {
   console.log("corriendo app " + port);
 });
 
-dbConnect();
+switch_db == "nosql" ? dbConnectMongo() : MYSQL_CONECTION();
