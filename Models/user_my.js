@@ -1,8 +1,8 @@
-const { sequelize } = (require = "../Config/mysql_db.js");
 const { DataTypes } = require("sequelize");
+const { sequelizeconect } = require("../Config/mysql_db");
 
-const User = sequelize.define(
-  users,
+const User = sequelizeconect.define(
+  "users",
   {
     name: { type: DataTypes.STRING, allowNull: false },
     age: { type: DataTypes.NUMBER },

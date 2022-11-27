@@ -36,4 +36,4 @@ app.listen(port, () => {
   console.log("corriendo app " + port);
 });
 
-switch_db == "nosql" ? dbConnectMongo() : MYSQL_CONECTION();
+switch_db == "mongo" ? dbConnectMongo() : MYSQL_CONECTION();

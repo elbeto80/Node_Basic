@@ -1,7 +1,7 @@
-const { sequelize } = require("../../config/mysql");
 const { DataTypes } = require("sequelize");
+const { sequelizeconect } = require("../Config/mysql_db");
 
-const Storage = sequelize.define(
+const Storage = sequelizeconect.define(
   "storages",
   {
     url: {

@@ -5,18 +5,18 @@ const username = process.env.MYSQL_USERNAME;
 const password = process.env.MYSQL_PASSWORD;
 const host = process.env.MYSQL_HOST;
 
-const sequelize = new Sequelize(database, username, password, {
+const sequelizeconect = new Sequelize(database, username, password, {
   host,
   dialect: "mysql",
 });
 
 const MYSQL_CONECTION = async () => {
   try {
-    await sequelize.authenticate();
+    await sequelizeconect.authenticate();
     console.log("Conectado MySQL DB");
   } catch (e) {
     console.log("MySQL: error de conexion", e);
   }
 };
 
-module.exports = { sequelize, MYSQL_CONECTION };
+module.exports = { sequelizeconect, MYSQL_CONECTION };

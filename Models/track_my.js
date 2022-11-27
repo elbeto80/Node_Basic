@@ -1,7 +1,7 @@
-const { sequelize } = (require = "../Config/mysql_db.js");
 const { DataTypes } = require("sequelize");
+const { sequelizeconect } = require("../Config/mysql_db");
 
-const Track = sequelize.define(
+const Track = sequelizeconect.define(
   "tracks",
   {
     name: {
