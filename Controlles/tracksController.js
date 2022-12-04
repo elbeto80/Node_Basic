@@ -3,7 +3,7 @@ const { trackModel } = require("../Models");
 
 const getTracks = async (req, res) => {
   try {
-    const tracks = await trackModel.find({});
+    const tracks = await trackModel.relationStorageAll({});
 
     return res.status(200).json({ tracks });
   } catch (err) {
@@ -16,7 +16,7 @@ const getTrack = async (req, res) => {
     req = matchedData(req);
     const { id } = req;
 
-    const track = await trackModel.findById(id);
+    const track = await trackModel.relationStorageId(id);
 
     return res.status(200).json({ track });
   } catch (err) {

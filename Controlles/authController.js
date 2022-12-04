@@ -30,9 +30,8 @@ const LoginUser = async (req, res) => {
   try {
     req = matchedData(req);
 
-    const user = await userModel
-      .findOne({ email: req.email })
-      .select("name email role password");
+    const user = await userModel.findOne({ email: req.email });
+    // .select("name email role password");
     if (!user) {
       return res
         .status(403)
@@ -46,6 +45,7 @@ const LoginUser = async (req, res) => {
         .json({ success: false, message: "Invalid password" });
     }
 
+    // user.set("password", undefined, { strict: false });
     const response = {
       user: {
         _id: user.id,
@@ -58,7 +58,9 @@ const LoginUser = async (req, res) => {
 
     return res.status(200).json({ data: response });
   } catch (err) {
-    return res.status(500).json({ message: err.message });
+    return res
+      .status(500)
+      .json({ message: err.message, error: "Error login user" });
   }
 };
 
