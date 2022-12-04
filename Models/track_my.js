@@ -1,6 +1,8 @@
 const { DataTypes } = require("sequelize");
 const { sequelizeconect } = require("../Config/mysql_db");
 
+const Storage = require("./storage_my");
+
 const Track = sequelizeconect.define(
   "tracks",
   {
@@ -37,5 +39,22 @@ const Track = sequelizeconect.define(
     timestamps: true,
   }
 );
+
+Track.relationStorageAll = function () {
+  Track.belongsTo(Storage, {
+    foreignKey: "mediaId",
+    as: "files",
+  });
+
+  return Track.findAll({ include: "files" });
+};
+
+Track.relationStorageId = function (id) {
+  Track.belongsTo(Storage, {
+    foreignKey: "mediaId",
+    as: "file",
+  });
+  return Track.findOne({ where: { id }, include: "file" });
+};
 
 module.exports = Track;
